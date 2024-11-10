@@ -1,20 +1,23 @@
+import java.time.LocalDate;
+
 public class SavingsAccount extends Account {
     private static double interestRate = 5.0; // Default interest rate
     private double minBalance;
     private double transactionLimit;
     private int maxNoTransactions;
-    private double charge;
+    private double minBalanceFine;
     private boolean isViolating;
     private int currentTransactions;
+    private LocalDate lastMinBalanceDate;
 
     public SavingsAccount(Customer accountHolder, Branch branch, double minBalance, double transactionLimit, int maxNoTransactions) {
         super(accountHolder, branch);
         this.minBalance = minBalance;
         this.transactionLimit = transactionLimit;
         this.maxNoTransactions = maxNoTransactions;
-        this.charge = 0.0;
         this.isViolating = false;
         this.currentTransactions = 0;
+        minBalanceFine = 1000;
     }
 
     public double calculateInterest() {
@@ -24,11 +27,13 @@ public class SavingsAccount extends Account {
 
     public boolean withdraw(double amount) {
         boolean success = false; // Track if withdrawal is successful
-        System.out.println("You have requested to withdraw: " + amount);
         if (getBalance() - amount >= minBalance) {
             super.withdraw(amount);
             success = true;
-            System.out.println("Withdrawal successful. New getBalance(): " + getBalance());
+            if (getBalance() < minBalance && lastMinBalanceDate == null) {
+                lastMinBalanceDate = LocalDate.now();
+            }
+            System.out.println("Withdrawal successful.");
         } else {
             System.out.println("Insufficient getBalance() to meet minimum getBalance() requirements.");
         }
@@ -37,11 +42,13 @@ public class SavingsAccount extends Account {
 
     public boolean deposit(double amount) {
         boolean success = false; // Track if deposit is successful
-        System.out.println("You have deposited: " + amount);
         if (amount > 0) {
             super.deposit(amount);
             success = true;
-            System.out.println("Deposit successful. New getBalance(): " + getBalance());
+            if (getBalance() >= minBalance) {
+                lastMinBalanceDate = null;
+            }
+            System.out.println("Deposit successful.");
         } else {
             System.out.println("Deposit amount must be positive.");
         }
@@ -52,13 +59,16 @@ public class SavingsAccount extends Account {
         return super.getBalance();
     }
 
-    public void imposeFine() {
-        charge = 50.0; // Example fine amount
-        if (isViolating) {
-            super.withdraw(charge);
-            System.out.println("Fine imposed: " + charge);
-        } else {
-            System.out.println("No fine imposed as there was no violation.");
+    void imposeFine() {
+        LocalDate currentDate = LocalDate.now();
+        if (lastMinBalanceDate != null) {
+                while (lastMinBalanceDate.plusDays(30).isBefore(currentDate) || lastMinBalanceDate.plusDays(30).isEqual(currentDate)) {
+                    if (getBalance() < minBalance) {
+            super.withdraw(minBalanceFine);
+                        System.out.println("Applied minimum balance fine of " + minBalanceFine + " for one cycle.");
+                    }
+                    lastMinBalanceDate = lastMinBalanceDate.plusDays(30);
+                }
         }
     }
 }
