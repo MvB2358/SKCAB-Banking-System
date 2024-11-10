@@ -93,7 +93,7 @@ public class Employee {
 
     public void editEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-        
+
         if (email != null && !email.isEmpty()) {
             if(email.matches(emailRegex)) {
                 this.email = email;
