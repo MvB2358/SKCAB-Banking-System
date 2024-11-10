@@ -14,7 +14,7 @@ class Card {
         this.name = name;
         this.cvv = generateCVV();
         this.expiryDate = generateExpiryDate();
-        this.status = "Inactive";
+        this.status = "Active";
     }
 
     private String generateCardNumber() {
@@ -47,11 +47,6 @@ class Card {
     public void unblockCard() {
         status = "Active";
         System.out.println("Card has been unblocked.");
-    }
-
-    public void activateCard() {
-        status = "Active";
-        System.out.println("Card has been activated.");
     }
 
     public String getCardDetails() {
