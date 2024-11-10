@@ -1,10 +1,9 @@
 import java.util.Date;
 public class Manager extends Employee {
 
-    public Manager( String employeeName, Bank bank, Branch branch, 
-                   String designation, String department, double salary, 
-                   int phoneNumber, String email, Date joiningDate) {
-        super(employeeName, bank, branch, designation, department, salary, phoneNumber, email, joiningDate);
+    public Manager( String employeeName, Bank bank, Branch branch, double salary,
+                   long phoneNumber, String email, Date joiningDate) {
+        super(employeeName, bank, branch, "Manager", "Branch", salary, phoneNumber, email, joiningDate);
     }
 
     public void approveLoan(LoanApplication application) {
