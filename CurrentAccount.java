@@ -72,7 +72,7 @@ class CurrentAccount extends Account{
             		}
         	}
     	}
-	void AccountDetails(){
+	void getAccountDetails(){
 		super.getAccountDetails();
 		System.out.println("Overdraft Limit: " + overdraftLimit);
 		System.out.println("Minimum Balance: " + minBalance);
