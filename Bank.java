@@ -3,7 +3,8 @@ import java.util.ArrayList;
 public class Bank {
     private String name;
     private final String bank_id;
-    private ArrayList<Branch> branches; // Taking Branch object as an Array List
+    private ArrayList<Branch> branches;
+     // Taking Branch object as an Array List
 
     public Bank(String name, String bank_id) {
         this.name = name;
