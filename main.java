@@ -29,9 +29,55 @@ public class main {
         LoanApplication la = new LoanApplication(Sam, 1000000.00, "Personal", LocalDate.now());
         Sam.applyLoan(la);
         Vnsp.addLoanApplication(la);
+
+        e.verifyLoan(la);
+        m.approveLoan(la);
+
+        LoanAccount l1 = new LoanAccount("ld03422", Sam, 1000000, 3.2, 12, LocalDate.now());
+        a1.addLoanAccount(l1);
+
         FixedDeposit fd = new FixedDeposit(100000.00, 12, 5.00, 12.00);
         a3.addFD(fd);
         Vnsp.addFixedDeposit(fd);
+
+        RecurringDeposit rd = new RecurringDeposit("RD0003212", 3.2, 30, 100000, LocalDate.now());
+        a1.addRD(rd);
+        Vnsp.addRecurringDeposit(rd);
+
+        Sam.addDebitCard(a1);
+        Max.addCreditCard(200000.0,5.0);
+
+
+        // depositing amt to all accounts
+        Transaction d = new Transaction(null, a1, "Deposit", 5000);
+        Transaction d1 = new Transaction(null, a2, "Deposit", 10000);
+        Transaction d2 = new Transaction(null, a3, "Deposit", 20000);
+        Transaction d3 = new Transaction(null, a4, "Deposit", 50000);
+
+        d.processTransaction();
+        d1.processTransaction();
+        d2.processTransaction();
+        d3.processTransaction();
+
+        // withdraw
+        Transaction w = new Transaction(a1, null, "Withdraw", 1000);
+        Transaction w1 = new Transaction(a2, null, "Withdraw", 2000);
+        Transaction w2 = new Transaction(a3, null, "Withdraw", 30000);
+        Transaction w3 = new Transaction(a4, null, "Withdraw", 75000);
+
+        w.processTransaction();
+        w1.processTransaction();
+        w2.processTransaction();
+        w3.processTransaction();
+
+        // Transferring btw Accounts
+
+        Transaction t = new Transaction(a1, a3, "Transfer", 5000);
+        Transaction t1 = new Transaction(a3, a4, "Transfer", 6000);
+
+        t.processTransaction();
+        t1.processTransaction();
+
 
     }
 }
