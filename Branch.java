@@ -5,7 +5,7 @@ class Branch{
 	private String branchName;
 	private String address;
 	private String contactNumber;
-	private Employee branchManager;
+	//private Employee branchManager;
 	private List<Employee> employees;
 	private List<Customer> customers;
 	private List<Account> accounts;
@@ -14,12 +14,12 @@ class Branch{
 	private List<LoanAccount> loanAccounts;
 	private List<FixedDeposit> fixedDeposits;
 	private List<RecurringDeposit> recurringDeposits;
-	Branch(String branchID, String branchName, String address, String contactNumber, Employee branchManager){
+	Branch(String branchID, String branchName, String address, String contactNumber){
 		this.branchID = branchID;
 		this.branchName = branchName;
 		this.address = address;
 		this.contactNumber = contactNumber;
-		this.branchManager = branchManager;
+		//this.branchManager = branchManager;
 		employees = new ArrayList<>();
 		customers = new ArrayList<>();
 		accounts = new ArrayList<>();
@@ -40,10 +40,7 @@ class Branch{
 	}
 	String getContactNumber(){
 		return contactNumber;
-	}
-	Employee getBranchManager(){
-		return branchManager;
-	}
+    }
 	List<Employee> getEmployees(){
 		return employees;
 	}
@@ -140,16 +137,12 @@ class Branch{
 			System.out.println("Recurring Deposit does not exist.");
 		}
 	}
-	void changeManager(Employee manager){
-		branchManager = manager;
-	}
 	void generateBranchReport(){
 		System.out.println("Branch ID: " + branchID);
 		System.out.println("Branch Name: " + branchName);
 		System.out.println("Branch address: " + address);
 		System.out.println("Branch Contact: " + contactNumber);
 		System.out.println("Branch Manager:");
-		branchManager.getEmployeeDetails();
 		System.out.println("Number of Employees: " + employees.size());
 		System.out.println("Number of Customers: " + customers.size());
 		System.out.println("Number of Accounts: " + accounts.size());
