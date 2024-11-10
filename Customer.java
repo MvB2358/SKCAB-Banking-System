@@ -75,6 +75,11 @@ class Customer {
         System.out.println("Loan application submitted: " + loanApp.getApplicationId());
     }
 
+    public void applyLoan(LoanApplication loanApp) {
+        loanApplications.add(loanApp);
+        System.out.println("Loan application submitted: " + loanApp.getApplicationId());
+    }
+
     public String getLoanApplicationStatus(LoanApplication loanApplication) {
         if (loanApplications.contains(loanApplication)) {
             return loanApplication.getLoanStatus();
